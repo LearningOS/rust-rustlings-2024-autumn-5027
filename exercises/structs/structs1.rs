@@ -7,24 +7,34 @@
 
 // I AM NOT DONE
 
-struct ColorClassicStruct {
-    // TODO: Something goes here
+//struct ColorClassicStruct {
+    // TODO: Something goes here  }
+struct c_structs {
+    red:u64,
+    green:u64,
+    blue:u64,
 }
-
-struct ColorTupleStruct(/* TODO: Something goes here */);
-
+//struct ColorTupleStruct(/* TODO: Something goes here */);
+struct ple(i64,i64,i64);
 #[derive(Debug)]
 struct UnitLikeStruct;
-
+struct Unit1;
 #[cfg(test)]
 mod tests {
+   
     use super::*;
 
     #[test]
     fn classic_c_structs() {
+        
         // TODO: Instantiate a classic c struct!
         // let green =
-
+        let greens=c_structs{
+            red:0,
+            green:255,
+            blue:0,
+        };
+        let green=greens;
         assert_eq!(green.red, 0);
         assert_eq!(green.green, 255);
         assert_eq!(green.blue, 0);
@@ -32,9 +42,11 @@ mod tests {
 
     #[test]
     fn tuple_structs() {
+      
         // TODO: Instantiate a tuple struct!
         // let green =
-
+        let ple1 = ple(0,255,0);
+        let green=ple1;
         assert_eq!(green.0, 0);
         assert_eq!(green.1, 255);
         assert_eq!(green.2, 0);
@@ -43,7 +55,9 @@ mod tests {
     #[test]
     fn unit_structs() {
         // TODO: Instantiate a unit-like struct!
-        // let unit_like_struct =
+        let unit_like_struct= UnitLikeStruct;
+        
+
         let message = format!("{:?}s are fun!", unit_like_struct);
 
         assert_eq!(message, "UnitLikeStructs are fun!");
