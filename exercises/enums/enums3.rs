@@ -9,12 +9,10 @@
 
 enum Message {
     // TODO: implement the message variant types based on their usage below
- 
-        Quit,
-        Move { x: i32, y: i32 },
-        Echo(String),
-        ChangeColor(i32, i32, i32),
-    
+    ChangeColor(u8,u8,u8),
+    Quit,
+    Echo(String),
+    Move(Point),
 }
 
 struct Point {
@@ -46,11 +44,11 @@ impl State {
 
     fn process(&mut self, message: Message) {
         
-       let m= match message {
-            Message::Quit => {self.quit=true},
-            Message::Echo=>{self.message=self.echo(message)},
-            Message::Point => {self.position=self.move_position(message)},
-            Message::ChangeColor=>{self.color=self.change_color(message)},
+        match message {
+            Message::ChangeColor(a,b,c) => self.change_color((a,b,c)),
+            Message::Quit => self.quit(),
+            Message::Echo(s)=> self.echo(s),
+            Message::Move(a) => self.move_position(a),
         };
         
     }
@@ -70,7 +68,7 @@ mod tests {
         };
        state.process(Message::ChangeColor(255, 0, 255));
         state.process(Message::Echo(String::from("hello world")));
-        state.process(Message::Move(Point { x: 10, y: 15 }));
+        state.process(Message::Move (Point{ x: 10, y: 15 }));//point
         state.process(Message::Quit);
 
         assert_eq!(state.color, (255, 0, 255));
