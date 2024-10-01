@@ -52,6 +52,8 @@ mod tests {
         let mut basket = HashMap::<Fruit, u32>::new();
         basket.insert(Fruit::Apple, 4);
         basket.insert(Fruit::Mango, 2);
+        basket.insert(Fruit::Banana, 5);
+        basket.insert(Fruit::Pineapple, 5);
         basket.insert(Fruit::Lychee, 5);
 
         basket
@@ -71,6 +73,7 @@ mod tests {
         let mut basket = get_fruit_basket();
         fruit_basket(&mut basket);
         let count_fruit_kinds = basket.len();
+
         assert!(count_fruit_kinds >= 5);
     }
 
