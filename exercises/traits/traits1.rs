@@ -15,6 +15,9 @@ trait AppendBar {
 
 impl AppendBar for String {
     // TODO: Implement `AppendBar` for type `String`.
+    fn append_bar(mut self)->Self{
+        format!("{}{}",self,"Bar")
+    }
 }
 
 fn main() {
@@ -37,6 +40,8 @@ mod tests {
         assert_eq!(
             String::from("").append_bar().append_bar(),
             String::from("BarBar")
+            
         );
+        print!("{}", String::from("").append_bar().append_bar())
     }
 }
