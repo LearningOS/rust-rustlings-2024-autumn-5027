@@ -38,6 +38,7 @@ extern "Rust" {
 
 mod Foo {
     // No `extern` equals `extern "Rust"`.
+    #[no_mangle]
     fn my_demo_function(a: u32) -> u32 {
         a
     }
@@ -45,7 +46,7 @@ mod Foo {
 
 #[cfg(test)]
 mod tests {
-    #[no_mangle]
+   
     use super::*;
 
     #[test]
