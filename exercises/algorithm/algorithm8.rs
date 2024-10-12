@@ -68,14 +68,27 @@ impl<T> myStack<T> {
     }
     pub fn push(&mut self, elem: T) {
         //TODO
+            self.q1.elements.push(elem)
     }
     pub fn pop(&mut self) -> Result<T, &str> {
         //TODO
-		Err("Stack is empty")
+        match  self.q1.is_empty(){
+		   true=>Err("Stack is empty"),
+           false=>{
+            let index = self.q1.elements.len() - 1; // 正确的索引
+            let visit = self.q1.elements.remove(index); // 移除并返回元素
+            
+            Ok(visit) // 直接返回值
+           }
+
+        }
     }
     pub fn is_empty(&self) -> bool {
 		//TODO
-        true
+        if self.q1.elements.len()==0{
+            return true
+        }
+        false
     }
 }
 

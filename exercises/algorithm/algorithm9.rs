@@ -6,10 +6,12 @@
 
 use std::cmp::Ord;
 use std::default::Default;
+use std::cmp::Ordering;
 
 pub struct Heap<T>
 where
     T: Default,
+
 {
     count: usize,
     items: Vec<T>,
@@ -19,6 +21,7 @@ where
 impl<T> Heap<T>
 where
     T: Default,
+
 {
     pub fn new(comparator: fn(&T, &T) -> bool) -> Self {
         Self {
@@ -38,6 +41,21 @@ where
 
     pub fn add(&mut self, value: T) {
         //TODO
+      
+        self.items.push(value);
+        self.count += 1;
+        let mut idx = self.count;
+        while idx > 1 {
+            let parent_idx = self.parent_idx(idx); // 提前计算父节点索引
+            if (self.comparator)(&self.items[idx], &self.items[parent_idx]) {
+                self.items.swap(idx, parent_idx);  // 使用预存的父节点索引进行swap
+                idx = parent_idx;
+            } else {
+                break;
+            }
+        }
+        
+
     }
 
     fn parent_idx(&self, idx: usize) -> usize {
@@ -58,13 +76,21 @@ where
 
     fn smallest_child_idx(&self, idx: usize) -> usize {
         //TODO
-		0
+		let left = self.left_child_idx(idx);
+    let right = self.right_child_idx(idx);
+
+    if right <= self.count {
+        if (self.comparator)(&self.items[right], &self.items[left]) {
+            return right;
+        }
+    }
+    left
     }
 }
 
 impl<T> Heap<T>
 where
-    T: Default + Ord,
+    T: Default + std::cmp::PartialOrd ,
 {
     /// Create a new MinHeap
     pub fn new_min() -> Self {
@@ -84,10 +110,26 @@ where
     type Item = T;
 
     fn next(&mut self) -> Option<T> {
-        //TODO
-		None
+        if self.is_empty() {
+            return None; // 堆为空，返回 None
+        }
+        //弹出堆顶元素(之前gpt直接前后换位子重排的)
+        let result=self.items.swap_remove(1);
+        self.count-=1;
+        let mut idx = 1;
+    while self.children_present(idx) {
+    let swap_idx = self.smallest_child_idx(idx);
+    if (self.comparator)(&self.items[swap_idx], &self.items[idx]) {
+        self.items.swap(idx, swap_idx);
+        idx = swap_idx;
+    } else {
+        break;
     }
-}
+}  Some(result)
+    }
+
+    }
+
 
 pub struct MinHeap;
 
